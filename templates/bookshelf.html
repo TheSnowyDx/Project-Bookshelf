@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}
+  Project Bookshelf
+{% endblock title %}    
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="background-video">
+  <video autoplay loop muted>
+    <source src="/static/videos/Background.mp4" type="video/mp4" />
+  </video>
+</div>
+
+<div class="container mt-4">
+  <h1 class="mb-4">My Bookshelf</h1>
+  <div class="table-responsive">
+    <table class="table book-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Description</th>
+          <th>Ratings</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if bookshelf %}
+          {% for book in bookshelf %}
+            <tr>
+              <td>{{ book.details.title }}</td>
+              <td>{{ book.details.author }}</td>
+              <td>
+                {% if book.details.description|length > 100 %}
+                  <p>{{ book.details.description[:100] }}...</p>
+                  <a href="#" class="toggle-description">Read more</a>
+                  <p style="display: none;">{{ book.details.description }}</p>
+                {% else %}
+                  <p>{{ book.details.description }}</p>
+                {% endif %}
+              </td>
+              <td>
+                <div class="rating-container" id="rating-container-{{ book.book_id }}">
+                  {% for i in range(5, 0, -1) %}
+                    {% if i <= book.rating %}
+                      <i class="fas fa-star rated"></i>
+                    {% else %}
+                      <i class="far fa-star"></i>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </td>
+              <td>
+                <a href="/remove-book?book_id={{ book.book_id }}" class="remove-link">Remove</a>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="5">Your bookshelf is empty.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/static/js/theme.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Event listener for clicking on stars to rate a book
+    $('.rating-container').on('click', '.fa-star', function() {
+      var rating = $(this).index() + 1;
+      var container_id = $(this).parent().attr('id');
+      var book_id = container_id.split('-')[2];
+      var clickedStar = $(this); // Store reference to clicked star
+      $.ajax({
+        url: '/rate-book',
+        type: 'POST',
+        data: {'book_id': book_id, 'rating': rating},
+        success: function(data) {
+          if (data.success) {
+            // Update the rating display
+            $('#' + container_id + ' .fa-star').removeClass('rated');
+            $('#' + container_id + ' .fa-star:lt(' + rating + ')').addClass('rated');
+            // Brighten the clicked star
+            clickedStar.addClass('clicked');
+          } else {
+            alert('Failed to update rating. Please try again.');
+          }
+        }
+      });
+    });
+
+    // Enable hover effect for stars
+    $('.rating-container').on('mouseenter', '.fa-star', function() {
+      $(this).prevAll().addBack().addClass('hover');
+    }).on('mouseleave', function() {
+      $(this).find('.fa-star').removeClass('hover');
+    });
+
+    // Handle click to set temporary rating on hover
+    $('.rating-container').on('click', '.fa-star', function() {
+      var rating = $(this).index() + 1;
+      $(this).siblings().removeClass('rated-temp');
+      $(this).prevAll().addBack().addClass('rated-temp');
+    });
+
+    // Toggle book description
+    $('.toggle-description').click(function(e) {
+      e.preventDefault();
+      var description = $(this).prev().text();
+      $(this).prev().toggle();
+      $(this).next().toggle();
+      $(this).text(function(i, text) {
+        return text === 'Read more' ? 'Less' : 'Read more';
+      });
+    });
+  });
+</script>
+
+{% endblock body %}

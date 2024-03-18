@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Recommendations
+{% endblock title %}
+
+{% block body %}
+<div class="background-video">
+    <video autoplay loop muted>
+      <source src="/static/videos/Background.mp4" type="video/mp4" />
+    </video>
+</div>
+<div class="container mt-5">
+    <h1>Book Recommendations</h1>
+    <div class="table-responsive mt-5">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books_info %}
+                <tr>
+                    <td>
+                        {% if book.volumeInfo.imageLinks %}
+                        <img src="{{ book.volumeInfo.imageLinks.thumbnail }}" class="book-cover" alt="Book Cover">
+                        {% else %}
+                        <!-- Provide a fallback image or placeholder if imageLinks is missing -->
+                        <img src="/static/images/placeholder.jpg" class="book-cover" alt="Book Cover Placeholder">
+                        {% endif %}
+                    </td>
+                    <td>{{ book.volumeInfo.title }}</td>
+                    <td>{{ book.volumeInfo.authors|join(', ') }}</td>
+                    <td>
+                        <a href="/display.html?title={{ book.volumeInfo.title|urlencode }}&authors={{ book.volumeInfo.authors|join(',')|urlencode }}&description={{ book.volumeInfo.description|urlencode }}" class="btn btn-primary details-btn">Details</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+
+{% endblock body %}
+
+

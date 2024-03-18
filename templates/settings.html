@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+  Project Bookshelf
+{% endblock title %}
+{% block body %}
+<div class="background-video">
+    <video autoplay loop muted>
+      <source src="/static/videos/Background.mp4" type="video/mp4" />
+    </video>
+  </div>
+    <div class="container mt-5">
+        <h1>Settings</h1>
+        <div class="container-fluid mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Account Settings</h5>
+                    <ul>
+                        <li><a href="/username">Change Username</a></li>
+                        <li><a href="/email">Change Email Address</a></li>
+                        <li><a href="/password">Change Password</a></li>
+                        <li><a href="/picture">Change Profile Picture</a></li>
+                    </ul>
+                </div>
+            </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+{% endblock body %}

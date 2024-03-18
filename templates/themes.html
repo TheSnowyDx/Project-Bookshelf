@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}
+  Project Bookshelf
+{% endblock title %}
+{% block body %}
+<div class="background-video">
+    <video autoplay loop muted>
+      <source src="/static/videos/Background.mp4" type="video/mp4" />
+    </video>
+  </div>
+    <div class="container mt-5">
+        <h1>Choose a Theme</h1>
+        <div class="row mt-5">
+            <div class="col">
+                <button class="btn btn-primary" onclick="handleThemeChange('light')">Light Theme</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" onclick="handleThemeChange('dark')">Dark Theme</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" onclick="handleThemeChange('sepia')">Sepia Theme</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" onclick="handleThemeChange('sunrise')">Sunrise Theme</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" onclick="handleThemeChange('valentine')">Valentine's Theme</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" onclick="handleThemeChange('forest')">Forest's Theme</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Theme JS -->
+    <script src="./static/js/theme.js"></script>
+{% endblock body %}

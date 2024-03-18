@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}
+  Project Bookshelf
+{% endblock title %}
+{% block body %}
+<div class="background-video">
+    <video autoplay loop muted>
+      <source src="/static/videos/Background.mp4" type="video/mp4" />
+    </video>
+  </div>
+<div class="container mt-4">
+    <h1 class="mb-4">Explore Books</h1>
+    <div class="table-responsive">
+        <table class="table table-striped book-table">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Display search results here -->
+                {% if books_info %}
+                    {% for book in books_info %}
+                        <tr>
+                            <td>
+                                {% if book.volumeInfo.imageLinks %}
+                                    <img src="{{ book.volumeInfo.imageLinks.thumbnail }}" class="book-image" alt="Book Cover">
+                                {% endif %}
+                            </td>
+                            <td>{{ book.volumeInfo.title }}</td>
+                            <td>
+                                {% if book.volumeInfo.authors %}
+                                    {{ book.volumeInfo.authors|join(', ') }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <!-- Add data-book-id attribute to the details button -->
+                                <a href="/display.html?title={{ book.volumeInfo.title|urlencode }}&authors={{ book.volumeInfo.authors|join(',')|urlencode }}&description={{ book.volumeInfo.description|urlencode }}" class="btn btn-primary details-btn">Details</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">No results found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock body %}
+

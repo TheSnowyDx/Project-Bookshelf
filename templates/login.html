@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/styles.css" rel="stylesheet">
+    <script src="/static/js/theme.js"></script>
+</head>
+<body>
+    <div class="background-video">
+        <video autoplay loop muted>
+          <source src="/static/videos/Background.mp4" type="video/mp4" />
+        </video>
+      </div>
+    <div class="container mt-5">
+        <h2>Login</h2>
+        <h5><a class="nav-link active" aria-current="page" href="/register">New User! Click here to register!!!</a></h5>
+        <form id="loginForm" action="/login" method="POST" onsubmit="return validateLoginForm()">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+            </div>
+            <div class="form-group">
+                <label for="password-reset">Forgot Password?<a href="/forgot_password">Click here to reset!</a></label>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <hr>
+        <div class="text-center">
+            <p>Or Sign-In with:</p>
+            <a href="/google-login" class="btn btn-danger">Google</a>
+            <a href="/auth/facebook" class="btn btn-danger">Facebook</a>
+            <a href="/auth/twitter" class="btn btn-info">Twitter</a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validateLoginForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username.trim() === '' || password.trim() === '') {
+                alert('Please enter username and password');
+                return false;
+            }
+            // Additional validation logic can be added here if needed
+            return true;
+        }
+    </script>
+</body>
+</html>

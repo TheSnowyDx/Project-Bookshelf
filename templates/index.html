@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}
+  Project Bookshelf
+{% endblock title %}    
+{% block body %}
+<div class="background-video">
+    <video autoplay loop muted>
+      <source src="/static/videos/Background.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+    <!-- Main content -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="display-4 mb-4">Discover and Share Books You Love</h1>
+                <p class="lead">Join our community of book enthusiasts to find and review your favorite books.</p>
+                <a href="/login" class="btn btn-primary btn-lg">Get Started</a>
+            </div>
+            <div class="col-md-4">
+                <!-- Image here -->
+                <img src="/static/images/logo.jpg" class="img-fluid rounded" alt="Bookshelf">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Featured books section -->
+    <div class="container mt-5">
+        <h2 class="mb-4">Featured Books</h2>
+        <div class="row">
+            <!-- Featured book cards go here -->
+            {% for book in featured_books %}
+            <div class="col-md-3 mb-7">
+                <div class="card h-100">
+                    <img src="{{ book.image }}" class="card-img-top" alt="{{ book.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">{{ book.author }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ book.preview_link }}" class="btn btn-sm btn-outline-secondary">View</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <!-- <div class="container mt-4"> -->
+            <span class="text-muted">&copy; 2024 Project Bookshelf</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+{% endblock body %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+Project BookShelf
+{% endblock title %}
+{% block body %}
+<div class="background-video">
+    <video autoplay loop muted>
+      <source src="/static/videos/Background.mp4" type="video/mp4" />
+    </video>
+  </div>
+    <div class="container mt-5">
+        <h1>Welcome to Your Dashboard</h1>
+        <div class="card-deck mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Profile Settings</h5>
+                    <p class="card-text">Manage your profile settings here.</p>
+                    <a class="btn btn-primary" href="/profile">Profile Settings</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reading Progress Overview</h5>
+                    <p class="card-text">Track your reading progress.</p>
+                    <a class="btn btn-primary" href="/bookshelf">Reading Progress</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Book Recommendations</h5>
+                    <p class="card-text">Discover book recommendations.</p>
+                    <a class="btn btn-primary" href="/recommendations">Recommendations</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+    {% endblock body %}

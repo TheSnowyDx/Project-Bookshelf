@@ -1,0 +1,91 @@
+{% extends 'base.html' %} {% block title %} Project Bookshelf {% endblock title
+%} {% block body %}
+<div class="background-video">
+  <video autoplay loop muted>
+    <source src="/static/videos/Background.mp4" type="video/mp4" />
+  </video>
+</div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body text-center">
+          <img
+            src="{{ url_for('static', filename='profiles/' + profile_picture) }}"
+            alt="Profile Picture"
+          />
+          <h5 class="card-title">{{ username }}</h5>
+          <p class="card-text">{{ user.email }}</p>
+          <!-- Display user's email -->
+          <p class="card-text">{{ user.bio }}</p>
+          <a class="btn btn-primary" aria-current="page" href="/settings"
+            >Edit Profile</a
+          >
+        </div>
+      </div>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Reading Progress</h5>
+          <p class="card-text">Books Read: {{ user.books_read }}</p>
+          <p class="card-text">
+            Currently Reading: {{ user.currently_reading }}
+          </p>
+          <p class="card-text">Want to Read: {{ user.want_to_read }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Bookshelves</h5>
+          <ul class="list-group">
+            {% if user.bookshelf %}
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for book in user.bookshelf[details] %}
+                  <tr>
+                    <td><p>Title: {{ book.title }}</p></td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.description }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% else %}
+            <p>You do not have any books in your bookshelf.</p>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Reviews</h5>
+          <ul class="list-group">
+            {% for review in user.reviews %}
+            <li class="list-group-item">
+              <p>Book: {{ review.book }}</p>
+              <p>Rating: {{ review.rating }}</p>
+              <p>{{ review.text }}</p>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/static/js/theme.js"></script>
+{% endblock body %}

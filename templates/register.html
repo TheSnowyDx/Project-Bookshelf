@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!--'Custom StyleSheet'-->
+    <link href="/static/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-video">
+        <video autoplay loop muted>
+          <source src="/static/videos/Background.mp4" type="video/mp4" />
+        </video>
+      </div>
+    <div class="container mt-5 container-box">
+        <h2 class="text-center mb-4">Register</h2>
+        <form id="registerForm" action="/register" method="POST" onsubmit="return validateRegisterForm()">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your first name" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter your last name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone number</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+            </div>
+            <div class="form-group">
+                <div class="instruction">Password must be between 8 and 32 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.</div>
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+            </div>
+            <div class="password-strength">
+                <div class="strength-bar" id="strength-bar"></div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" required>
+                <label for="confirmPassword">Re-enter Password</label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Register</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validateRegisterForm() {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return false;
+            }
+            // Additional validation logic can be added here if needed
+            return true;
+        }
+        function checkPasswordStrength() {
+            var password = document.getElementById('password').value;
+            var strengthBar = document.getElementById('strength-bar');
+            var strength = 0;
+            
+            // Add conditions to determine password strength
+            if (password.length >= 8 && password.length <= 32) {
+                strength += 1;
+            }
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+                strength += 1;
+            }
+            if (/\d/.test(password)) {
+                strength += 1;
+            }
+            if (/[^a-zA-Z0-9]/.test(password)) {
+                strength += 1;
+            }
+
+            // Update strength bar color and width based on strength level
+            if (strength === 1) {
+                strengthBar.className = 'strength-bar weak';
+                strengthBar.style.width = '25%';
+            } else if (strength === 2 || strength === 3) {
+                strengthBar.className = 'strength-bar medium';
+                strengthBar.style.width = '50%';
+            } else if (strength === 4) {
+                strengthBar.className = 'strength-bar strong';
+                strengthBar.style.width = '100%';
+            }
+        }
+
+        // Call checkPasswordStrength function whenever a key is pressed in the password input field
+        document.getElementById('password').addEventListener('input', checkPasswordStrength);
+    </script>
+</body>
+</html>

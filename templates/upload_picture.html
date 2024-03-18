@@ -1,0 +1,48 @@
+# Template (upload_picture.html)
+{% extends 'base.html' %}
+{% block title %}
+  Project Bookshelf - Upload Profile Picture
+{% endblock title %}
+{% block head %}
+  <link rel="stylesheet" href="/static/css/upload.css">
+{% endblock head %}
+{% block body %}
+<div class="background-video">
+  <video autoplay loop muted>
+    <source src="/static/videos/Background.mp4" type="video/mp4" />
+  </video>
+</div>
+<div class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                  {{ message }}
+              </div>
+          {% endfor %}
+      {% endif %}
+  {% endwith %}  
+  <div class="upload-form">
+    <h1>Upload Profile Picture</h1>
+    <form id="profile-picture-form" action="/picture" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="picture-input" class="picture-label">Choose a Picture:</label>
+        <input type="file" id="picture-input" name="profile_picture" accept="image/*" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Upload Picture</button>
+    </form>
+    <div id="preview-container" class="preview-container">
+      <h2>Preview:</h2>
+      <img id="preview-image" class="preview-image" src="#" alt="Preview" style="display: none;">
+    </div>
+  </div>
+</div>
+<script src="/static/js/upload.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+
+{% endblock body %}
