@@ -12,9 +12,9 @@ cryptography==42.0.5
 dnspython==2.6.1
 Flask==3.0.2
 Flask-OAuth==0.12
-flask-dance==7.1.0
 flask-oauthlib==0.9.6
-oauthlib>=1.1.2,<3.0.0
+flask-dance==7.1.0
+oauthlib>=3.2
 greenlet==3.0.3
 gunicorn==21.2.0
 httplib2==0.22.0
