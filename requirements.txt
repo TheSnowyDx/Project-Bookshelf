@@ -1,7 +1,6 @@
 Authlib
 bcrypt
 blinker
-bson
 cachelib
 certifi
 cffi
